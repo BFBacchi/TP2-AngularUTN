@@ -23,10 +23,16 @@
               [class.border-red-500]="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched"
               placeholder="Ingresa tu nombre completo"
             />
-            <div *ngIf="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched" class="mt-1 text-sm text-red-600 dark:text-red-400 transition-colors duration-200">
-              <span *ngIf="registroForm.get('nombre')?.errors?.['required']">El nombre es obligatorio</span>
-              <span *ngIf="registroForm.get('nombre')?.errors?.['minlength']">El nombre debe tener al menos 2 caracteres</span>
-            </div>
+            @if (registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched) {
+              <div class="mt-1 text-sm text-red-600 dark:text-red-400 transition-colors duration-200">
+                @if (registroForm.get('nombre')?.errors?.['required']) {
+                  <span>El nombre es obligatorio</span>
+                }
+                @if (registroForm.get('nombre')?.errors?.['minlength']) {
+                  <span>El nombre debe tener al menos 2 caracteres</span>
+                }
+              </div>
+            }
           </div>
 
           <!-- Email -->
@@ -42,10 +48,16 @@
               [class.border-red-500]="registroForm.get('email')?.invalid && registroForm.get('email')?.touched"
               placeholder="ejemplo@correo.com"
             />
-            <div *ngIf="registroForm.get('email')?.invalid && registroForm.get('email')?.touched" class="mt-1 text-sm text-red-600 dark:text-red-400 transition-colors duration-200">
-              <span *ngIf="registroForm.get('email')?.errors?.['required']">El email es obligatorio</span>
-              <span *ngIf="registroForm.get('email')?.errors?.['email']">Ingresa un email válido</span>
-            </div>
+            @if (registroForm.get('email')?.invalid && registroForm.get('email')?.touched) {
+              <div class="mt-1 text-sm text-red-600 dark:text-red-400 transition-colors duration-200">
+                @if (registroForm.get('email')?.errors?.['required']) {
+                  <span>El email es obligatorio</span>
+                }
+                @if (registroForm.get('email')?.errors?.['email']) {
+                  <span>Ingresa un email válido</span>
+                }
+              </div>
+            }
           </div>
 
           <!-- Contraseña -->
@@ -61,10 +73,16 @@
               [class.border-red-500]="registroForm.get('password')?.invalid && registroForm.get('password')?.touched"
               placeholder="Mínimo 8 caracteres"
             />
-            <div *ngIf="registroForm.get('password')?.invalid && registroForm.get('password')?.touched" class="mt-1 text-sm text-red-600 dark:text-red-400 transition-colors duration-200">
-              <span *ngIf="registroForm.get('password')?.errors?.['required']">La contraseña es obligatoria</span>
-              <span *ngIf="registroForm.get('password')?.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres</span>
-            </div>
+            @if (registroForm.get('password')?.invalid && registroForm.get('password')?.touched) {
+              <div class="mt-1 text-sm text-red-600 dark:text-red-400 transition-colors duration-200">
+                @if (registroForm.get('password')?.errors?.['required']) {
+                  <span>La contraseña es obligatoria</span>
+                }
+                @if (registroForm.get('password')?.errors?.['minlength']) {
+                  <span>La contraseña debe tener al menos 8 caracteres</span>
+                }
+              </div>
+            }
           </div>
 
           <!-- Confirmar Contraseña -->
@@ -80,10 +98,16 @@
               [class.border-red-500]="registroForm.get('confirmPassword')?.invalid && registroForm.get('confirmPassword')?.touched"
               placeholder="Repite tu contraseña"
             />
-            <div *ngIf="registroForm.get('confirmPassword')?.invalid && registroForm.get('confirmPassword')?.touched" class="mt-1 text-sm text-red-600 dark:text-red-400 transition-colors duration-200">
-              <span *ngIf="registroForm.get('confirmPassword')?.errors?.['required']">Confirma tu contraseña</span>
-              <span *ngIf="registroForm.get('confirmPassword')?.errors?.['passwordMismatch']">Las contraseñas no coinciden</span>
-            </div>
+            @if (registroForm.get('confirmPassword')?.invalid && registroForm.get('confirmPassword')?.touched) {
+              <div class="mt-1 text-sm text-red-600 dark:text-red-400 transition-colors duration-200">
+                @if (registroForm.get('confirmPassword')?.errors?.['required']) {
+                  <span>Confirma tu contraseña</span>
+                }
+                @if (registroForm.get('confirmPassword')?.errors?.['passwordMismatch']) {
+                  <span>Las contraseñas no coinciden</span>
+                }
+              </div>
+            }
           </div>
 
           <!-- Teléfono -->
@@ -127,9 +151,11 @@
               <label for="terminos" class="font-medium text-gray-700 dark:text-gray-300 transition-colors duration-200">
                 Acepto los <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline transition-colors duration-200">Términos y Condiciones</a> *
               </label>
-              <div *ngIf="registroForm.get('terminos')?.invalid && registroForm.get('terminos')?.touched" class="mt-1 text-red-600 dark:text-red-400 transition-colors duration-200">
-                Debes aceptar los términos y condiciones
-              </div>
+              @if (registroForm.get('terminos')?.invalid && registroForm.get('terminos')?.touched) {
+                <div class="mt-1 text-red-600 dark:text-red-400 transition-colors duration-200">
+                  Debes aceptar los términos y condiciones
+                </div>
+              }
             </div>
           </div>
 
