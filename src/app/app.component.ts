@@ -12,6 +12,7 @@ import { ThemeService, Theme } from './services/theme.service';
 })
 export class AppComponent {
   currentTheme: Theme = 'light';
+  menuAbierto = false;
 
   constructor(private themeService: ThemeService) {
     this.themeService.theme$.subscribe(theme => {
@@ -23,5 +24,9 @@ export class AppComponent {
   toggleTheme(): void {
     console.log('Botón de tema clickeado, tema actual:', this.currentTheme);
     this.themeService.toggleTheme();
+  }
+
+  isMobile(): boolean {
+    return window.innerWidth < 768;
   }
 }
