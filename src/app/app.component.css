@@ -1,0 +1,23 @@
+/* Estilos para eliminar espacio en blanco del router-outlet */
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.flex-1 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+router-outlet {
+  display: contents;
+}
+
+/* Asegurar que el contenido llene el espacio */
+router-outlet + * {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

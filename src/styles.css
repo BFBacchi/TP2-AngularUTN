@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* Configuración para modo oscuro en Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Configuración para modo oscuro */
+@layer base {
+  :root {
+    --color-scheme: light;
+  }
+  
+  :root.dark {
+    --color-scheme: dark;
+  }
+}
+
+/* Asegurar que el modo oscuro funcione correctamente */
+html {
+  color-scheme: var(--color-scheme);
+}
+
+/* Forzar que las clases dark: funcionen */
+.dark {
+  color-scheme: dark;
+}
+
+/* Estilos de respaldo para modo oscuro */
+.dark body {
+  background-color: #111827;
+  color: #f9fafb;
+}
+
+/* Asegurar que las clases dark: se apliquen correctamente */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark * {
+  color-scheme: dark;
+}
+
+/* Debug: mostrar cuando el modo oscuro está activo */
+html.dark::before {
+  content: "DARK MODE ACTIVE";
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: red;
+  color: white;
+  z-index: 9999;
+  font-size: 12px;
+  padding: 2px 4px;
+}
