@@ -34,20 +34,3 @@ html {
 html.dark {
   color-scheme: dark;
 }
-
-html.dark * {
-  color-scheme: dark;
-}
-
-/* Debug: mostrar cuando el modo oscuro está activo */
-html.dark::before {
-  content: "DARK MODE ACTIVE";
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: red;
-  color: white;
-  z-index: 9999;
-  font-size: 12px;
-  padding: 2px 4px;
-}

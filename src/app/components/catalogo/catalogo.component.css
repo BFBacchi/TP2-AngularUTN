@@ -1,0 +1,88 @@
+/* Estilos para los filtros */
+.filtros-container {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* Asegurar que los inputs y selects funcionen correctamente en tema oscuro */
+.filtros-container select,
+.filtros-container input {
+  background-color: white;
+  color: #111827;
+}
+
+.dark .filtros-container select,
+.dark .filtros-container input {
+  background-color: #374151;
+  color: white;
+}
+
+.dark .filtros-container select option {
+  background-color: #374151;
+  color: white;
+}
+
+/* Estilos para la paginación */
+.paginacion-button {
+  transition: all 0.2s ease-in-out;
+}
+
+.paginacion-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.paginacion-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Estilos para los productos */
+.producto-card {
+  transition: all 0.3s ease-in-out;
+}
+
+.producto-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Estilos para el texto truncado */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Estilos para los inputs de filtro */
+.filtro-input:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Animación de carga */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Estilos para el estado vacío */
+.estado-vacio {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

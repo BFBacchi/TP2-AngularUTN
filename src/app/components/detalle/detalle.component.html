@@ -1,4 +1,29 @@
-@if (producto) {
+@if (loading) {
+  <div class="bg-gray-50 dark:bg-gray-900 py-8 transition-colors duration-200">
+    <div class="container mx-auto px-6 text-center">
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <p class="mt-4 text-gray-600 dark:text-gray-300 transition-colors duration-200">Cargando producto...</p>
+    </div>
+  </div>
+}
+
+@if (error) {
+  <div class="bg-gray-50 dark:bg-gray-900 py-8 transition-colors duration-200">
+    <div class="container mx-auto px-6 text-center">
+      <div class="text-red-600 dark:text-red-400 mb-4">
+        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+        </svg>
+      </div>
+      <p class="text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-200">Error al cargar el producto</p>
+      <button (click)="cargarProducto(toNumber(productId))" class="bg-blue-600 dark:bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-200">
+        Intentar de nuevo
+      </button>
+    </div>
+  </div>
+}
+
+@if (producto && !loading && !error) {
   <div class="bg-gray-50 dark:bg-gray-900 py-8 transition-colors duration-200">
     <div class="container mx-auto px-6">
       <div class="max-w-6xl mx-auto">
@@ -26,7 +51,7 @@
                 <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                 </svg>
-                <span class="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400 md:ml-2 transition-colors duration-200">{{ producto.nombre }}</span>
+                <span class="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400 md:ml-2 transition-colors duration-200">{{ producto.title }}</span>
               </div>
             </li>
           </ol>
@@ -39,7 +64,7 @@
             <div class="space-y-4">
               <div class="aspect-w-1 aspect-h-1 w-full">
                 <div class="h-96 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center overflow-hidden transition-colors duration-200">
-                  <img [src]="producto.imagen" [alt]="producto.nombre" class="w-full h-full object-cover">
+                  <img [src]="producto.image" [alt]="producto.title" [title]="producto.title" class="w-full h-full object-cover">
                 </div>
               </div>
               <!-- Miniaturas -->
@@ -54,55 +79,55 @@
             <!-- Información del Producto -->
             <div class="space-y-6">
               <div>
-                <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2 transition-colors duration-200">{{ producto.nombre }}</h1>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2 transition-colors duration-200">{{ producto.title }}</h1>
                 <div class="flex items-center mb-4">
                   <div class="flex items-center">
-                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                    </svg>
-                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                    </svg>
-                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                    </svg>
-                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                    </svg>
-                    <svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                    </svg>
+                    @for (star of [1, 2, 3, 4, 5]; track star) {
+                      <svg class="w-5 h-5" [class.text-yellow-400]="star <= producto.rating.rate" [class.text-gray-300]="star > producto.rating.rate" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                      </svg>
+                    }
                   </div>
-                  <span class="ml-2 text-sm text-gray-600 dark:text-gray-400 transition-colors duration-200">(128 reseñas)</span>
+                  <span class="ml-2 text-sm text-gray-600 dark:text-gray-400 transition-colors duration-200">({{ producto.rating.count }} reseñas)</span>
                 </div>
               </div>
 
               <!-- Precio -->
               <div class="flex items-center space-x-4">
-                <span class="text-3xl font-bold text-blue-600 dark:text-blue-400 transition-colors duration-200">${{ producto.precio }}</span>
-                <span class="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-200">Stock: {{ producto.stock }} unidades</span>
+                <span class="text-3xl font-bold text-blue-600 dark:text-blue-400 transition-colors duration-200">${{ producto.price }}</span>
+                <span class="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-200">Categoría: {{ producto.category }}</span>
               </div>
 
               <!-- Descripción -->
               <div>
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 transition-colors duration-200">Descripción</h3>
                 <p class="text-gray-600 dark:text-gray-300 leading-relaxed transition-colors duration-200">
-                  {{ producto.descripcion }}
+                  {{ producto.description }}
                 </p>
               </div>
 
               <!-- Características -->
               <div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 transition-colors duration-200">Características</h3>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 transition-colors duration-200">Información del Producto</h3>
                 <ul class="space-y-2 text-gray-600 dark:text-gray-300 transition-colors duration-200">
-                  @for (caracteristica of producto.caracteristicas; track caracteristica) {
-                    <li class="flex items-center">
-                      <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                      </svg>
-                      {{ caracteristica }}
-                    </li>
-                  }
+                  <li class="flex items-center">
+                    <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    ID del producto: {{ producto.id }}
+                  </li>
+                  <li class="flex items-center">
+                    <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    Categoría: {{ producto.category }}
+                  </li>
+                  <li class="flex items-center">
+                    <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    Calificación: {{ producto.rating.rate }}/5 ({{ producto.rating.count }} reseñas)
+                  </li>
                 </ul>
               </div>
 
@@ -112,7 +137,7 @@
                   <label class="text-sm font-medium text-gray-700 dark:text-gray-300 transition-colors duration-200">Cantidad:</label>
                   <div class="flex items-center border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-md transition-colors duration-200">
                     <button class="px-3 py-1 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200">-</button>
-                    <input type="number" value="1" min="1" class="w-16 text-center border-0 bg-transparent text-gray-900 dark:text-white focus:ring-0 transition-colors duration-200">
+                    <input type="number" value="1" min="1" class="w-16 text-center border-0 bg-transparent text-gray-900 dark:text-white focus:ring-0 transition-colors duration-200" aria-label="Cantidad">
                     <button class="px-3 py-1 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200">+</button>
                   </div>
                 </div>
@@ -170,13 +195,6 @@
           </button>
         </div>
       </div>
-    </div>
-  </div>
-}
-@if (!producto) {
-  <div class="bg-gray-50 dark:bg-gray-900 py-8 transition-colors duration-200">
-    <div class="container mx-auto px-6 text-center">
-      <div class="text-gray-600 dark:text-gray-300 transition-colors duration-200">Cargando producto...</div>
     </div>
   </div>
 }

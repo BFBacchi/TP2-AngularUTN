@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ThemeService, Theme } from './services/theme.service';
 
 @Component({
@@ -14,7 +14,10 @@ export class AppComponent {
   currentTheme: Theme = 'light';
   menuAbierto = false;
 
-  constructor(private themeService: ThemeService) {
+  constructor(
+    private themeService: ThemeService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
     this.themeService.theme$.subscribe(theme => {
       console.log('Tema actual en componente:', theme);
       this.currentTheme = theme;
@@ -27,6 +30,9 @@ export class AppComponent {
   }
 
   isMobile(): boolean {
-    return window.innerWidth < 768;
+    if (isPlatformBrowser(this.platformId)) {
+      return window.innerWidth < 768;
+    }
+    return false; // Valor por defecto para SSR
   }
 }
