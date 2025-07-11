@@ -1,6 +1,9 @@
 {
   "routes": [
-    { "handle": "filesystem" },
+    { "src": "/browser/(.*)", "dest": "/browser/$1" },
+    { "src": "/(.*\\.js)", "dest": "/browser/$1" },
+    { "src": "/(.*\\.css)", "dest": "/browser/$1" },
+    { "src": "/(.*\\.ico)", "dest": "/browser/$1" },
     { "src": "/(.*)", "dest": "/browser/index.csr.html" }
   ]
 } 
